@@ -1,6 +1,6 @@
 (function(){
     
-    //variables
+//VARIABLES ================================================================================
 
 let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
                "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -16,20 +16,19 @@ let guessesLeft = 10;
 let yourGuesses = "";
 
 
-letterToGuess = Math.floor(Math.random() * 26) + 1;
+//letterToGuess = Math.floor(Math.random() * 26) + 1;
 
-//FUNCTIONS
-//==========================================================================================
+//FUNCTIONS ================================================================================
 
 function updateWins() {
     wins += 1;
-    document.querySelector("#Wins").innerHTML = "Wins: " + wins;
+    document.querySelector("#wins").innerHTML = "Wins: " + wins;
 }
 
 function updateLosses() {
     
     losses += 1;
-    document.querySelector("#Losses").innerHTML = "Losses: " + losses;
+    document.querySelector("#losses").innerHTML = "losses: " + losses;
 }
 
 function updateGuessesLeft() {
@@ -42,7 +41,7 @@ function updateGuessesLeft() {
 function updateUserGuesses(guess) {
     
     yourGuesses += guess + ", ";
-    document.querySelector("#Guesses").innerHTML = "Guesses Made so far: " + yourGuesses;
+    document.querySelector("#guesses").innerHTML = "Guesses Made so far: " + yourGuesses;
     
 }
 
@@ -52,9 +51,9 @@ function randomLetter() {
     
     letterToGuess = letters[indexOfRandomLetter];
     
-    console.log(letterToGuess);
+//    console.log(letterToGuess); //used to troubleshoot output of random letter
     
-    console.log(indexOfRandomLetter);
+//    console.log(indexOfRandomLetter); //used to troubleshoot output of random index
     
 }
     
@@ -64,15 +63,20 @@ function resetStage() {
     yourGuesses = "";
     randomLetter(); //reset - pick new random letter
     document.querySelector("#guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
-    document.querySelector("#Guesses").innerHTML = "Guesses Made so far: ";
+    document.querySelector("#guesses").innerHTML = "Guesses Made so far: ";
     
+}
+    
+function setStage() {
+    
+    randomLetter();
+    document.querySelector("#guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
 }
 
 //INITIALIZATION
 //=============================================================================================
 
-randomLetter(); //INITIALIZE THE FIRST LETTER TO GUESS
-resetStage(); //INITIALIZE THE STAGE AND RESET AFTER EACH GAME
+setStage(); //INITIALIZE THE FIRST LETTER TO GUESS
     
 //=============================================================================================
    
@@ -81,7 +85,7 @@ resetStage(); //INITIALIZE THE STAGE AND RESET AFTER EACH GAME
 document.onkeyup = function(event) {
 
     // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
-    var userInput = event.key.toLowerCase();
+    let userInput = event.key.toLowerCase();
     
     if(userInput === letterToGuess) {
         
@@ -90,13 +94,13 @@ document.onkeyup = function(event) {
         updateWins();
         resetStage();
         
-    } else if (userInput != letterToGuess) {
+    } else {
         
         updateGuessesLeft();
         
         updateUserGuesses(userInput);
         
-        if (guessesLeft < 0) {
+        if (guessesLeft <= 0) {
             
             alert("You Lose. Try again.");
             
@@ -105,8 +109,7 @@ document.onkeyup = function(event) {
             
         }
     } 
-//    console.log(userInput);
+//    console.log(userInput); //used to troubleshoot output
 };
-    
     
 })();
