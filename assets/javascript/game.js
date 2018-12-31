@@ -27,7 +27,9 @@ function updateWins() {
 }
 
 function updateLosses() {
+    
     losses += 1;
+    document.querySelector("#Losses").innerHTML = "Losses: " + losses;
 }
 
 function updateGuessesLeft() {
@@ -60,18 +62,22 @@ function resetStage() {
     
     guessesLeft = 10;
     yourGuesses = "";
+    randomLetter(); //reset - pick new random letter
     document.querySelector("#guessesLeft").innerHTML = "Guesses Left: " + guessesLeft;
     document.querySelector("#Guesses").innerHTML = "Guesses Made so far: ";
     
 }
 
-//MAIN
+//INITIALIZATION
 //=============================================================================================
 
 randomLetter(); //INITIALIZE THE FIRST LETTER TO GUESS
-resetStage();
+resetStage(); //INITIALIZE THE STAGE AND RESET AFTER EACH GAME
     
-//event listeners
+//=============================================================================================
+   
+//MAIN ========================================================================================
+//EVENT LISTERNER
 document.onkeyup = function(event) {
 
     // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
@@ -80,9 +86,9 @@ document.onkeyup = function(event) {
     if(userInput === letterToGuess) {
         
         alert("You Guessed Correctly");
+        
         updateWins();
-        yourGueses = "";
-        randomLetter(); //reset - pick new random letter
+        resetStage();
         
     } else if (userInput != letterToGuess) {
         
@@ -95,15 +101,11 @@ document.onkeyup = function(event) {
             alert("You Lose. Try again.");
             
             updateLosses();
-            resetStage(); //reset stage
+            resetStage();
             
         }
-    }
-    
-    
-    
-    
-    console.log(userInput);
+    } 
+//    console.log(userInput);
 };
     
     
